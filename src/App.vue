@@ -1,56 +1,52 @@
-<template>
-    <json-editor ref="JsonEditor" :schema="schema" v-model="model">
-        <button @click="submit">submit</button>
-        <button @click="reset">Reset</button>
-    </json-editor>
-</template>
-
 <script>
-const SCHEMA = {
-    type: "object",
-    title: "vue-json-editor demo",
-    properties: {
-        name: {
-            type: "string",
-        },
-        email: {
-            type: "string",
-        },
-    },
-};
-// import vue-json-ui-editor
-import JsonEditor from "vue-json-ui-editor";
+import JsonEditorVue from "json-editor-vue";
 
 export default {
-    components: { JsonEditor },
-    data: () => ({
-        // init json schma file ( require('@/schema/newsletter') )
-        schema: SCHEMA,
-        // data
-        model: {
-            name: "Yourtion",
-        },
-    }),
-
-    methods: {
-        submit(_e) {
-            alert(JSON.stringify(this.model));
-        },
-        reset() {
-            this.$refs.JsonEditor.reset();
-        },
+    name: "fdUI",
+    data() {
+        return {
+            value: {
+                data: [1, 4, 5, 2, 0],
+                power: "like",
+                alias: {
+                    ticket: "dsf",
+                    exportconf: {
+                        name: 4,
+                        id: "44",
+                        restOpts: {
+                            P: 90,
+                        },
+                    },
+                },
+            },
+        };
     },
-};
-
-const sampleJSON = {
-    customer: "default",
-    config: {
-        passWordHint: "",
-        ticketMailNotification: { status: ["OPEN"], cc: {} },
-        hideTicketTiles: [],
-        ticketExportOptions: { maxRowsToExport: 10000, monthRange: 6 },
-        appName: "",
-        alias: {},
-    },
+    components: { JsonEditorVue },
 };
 </script>
+
+<template>
+    <main class="parent">
+        <section>
+            <JsonEditorVue
+                v-model="value"
+                v-bind="{
+                    /* local props & attrs */
+                }" />
+        </section>
+
+        <pre>
+            {{ value }}
+        </pre>
+    </main>
+</template>
+<style>
+.parent {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.parent > * {
+    flex: 1;
+}
+</style>
