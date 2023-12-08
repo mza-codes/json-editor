@@ -1,52 +1,29 @@
+<template>
+    <div>
+        <nested-form :formData="nestedJsonData" />
+    </div>
+</template>
+
 <script>
-import JsonEditorVue from "json-editor-vue";
+import NestedForm from "@/components/NestedForm.vue"; // Adjust the path based on your project structure
 
 export default {
-    name: "fdUI",
+    components: {
+        NestedForm,
+    },
     data() {
         return {
-            value: {
-                data: [1, 4, 5, 2, 0],
-                power: "like",
-                alias: {
-                    ticket: "dsf",
-                    exportconf: {
-                        name: 4,
-                        id: "44",
-                        restOpts: {
-                            P: 90,
-                        },
-                    },
+            nestedJsonData: {
+                // Your nested JSON data goes here
+                // Example:
+                name: "John Doe",
+                address: {
+                    street: "123 Main St",
+                    city: "Example City",
                 },
+                hobbies: ["Reading", "Coding"],
             },
         };
     },
-    components: { JsonEditorVue },
 };
 </script>
-
-<template>
-    <main class="parent">
-        <section>
-            <JsonEditorVue
-                v-model="value"
-                v-bind="{
-                    /* local props & attrs */
-                }" />
-        </section>
-
-        <pre>
-            {{ value }}
-        </pre>
-    </main>
-</template>
-<style>
-.parent {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-}
-.parent > * {
-    flex: 1;
-}
-</style>
