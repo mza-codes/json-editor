@@ -1,26 +1,56 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <json-editor ref="JsonEditor" :schema="schema" v-model="model">
+        <button @click="submit">submit</button>
+        <button @click="reset">Reset</button>
+    </json-editor>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+const SCHEMA = {
+    type: "object",
+    title: "vue-json-editor demo",
+    properties: {
+        name: {
+            type: "string",
+        },
+        email: {
+            type: "string",
+        },
+    },
+};
+// import vue-json-ui-editor
+import JsonEditor from "vue-json-ui-editor";
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
-</script>
+    components: { JsonEditor },
+    data: () => ({
+        // init json schma file ( require('@/schema/newsletter') )
+        schema: SCHEMA,
+        // data
+        model: {
+            name: "Yourtion",
+        },
+    }),
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+    methods: {
+        submit(_e) {
+            alert(JSON.stringify(this.model));
+        },
+        reset() {
+            this.$refs.JsonEditor.reset();
+        },
+    },
+};
+
+const sampleJSON = {
+    customer: "default",
+    config: {
+        passWordHint: "",
+        ticketMailNotification: { status: ["OPEN"], cc: {} },
+        hideTicketTiles: [],
+        ticketExportOptions: { maxRowsToExport: 10000, monthRange: 6 },
+        appName: "",
+        alias: {},
+    },
+};
+</script>
