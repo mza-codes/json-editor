@@ -22,9 +22,15 @@
 </template>
 
 <script>
+import { toRaw } from "vue";
+
 export default {
+    name: "nested-form",
     props: {
         formData: Object,
+    },
+    mounted() {
+        console.log("@rvd", toRaw(this.formData));
     },
     methods: {
         isObject(value) {
